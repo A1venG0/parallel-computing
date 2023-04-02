@@ -29,23 +29,6 @@ void threadPool::initilize(const size_t threadCount)
 	isInitialized = !threads.empty();
 }
 
-/*template <typename T, typename... args>
-void threadPool::add_task(T&& task, args&&... params)
-{
-	{
-		std::shared_lock<std::shared_mutex> _(readWriteMutex);
-		if (!workingUnsafe())
-		{
-			return;
-		}
-	}
-
-	auto bind = std::bind(std::forward<T>(task), std::forward<args>(params));
-
-	tasks.emplace(bind);
-	waiter.notify_one();
-}*/
-
 void threadPool::terminate()
 {
 	{
@@ -63,8 +46,6 @@ void threadPool::terminate()
 			return;
 		}
 	}
-	//waiter.notify_all();
-	// lock.unlock();
 	for (auto& thread : threads)
 	{
 		thread.join();
@@ -90,7 +71,6 @@ void threadPool::terminate_immidiately()
 		return;
 	}
 
-	//waiter.notify_all();
 
 	for (auto& thread : threads)
 	{
@@ -163,21 +143,6 @@ void threadPool::routine(int threadId)
 				isRunning = false;
 				continue;
 			}
-			//waiter.wait(_, waitCondition);
-
-			/*if (isTerminated && !taskAcquired)
-				return;*/
-
-			/*if (!tasks.empty())
-			{
-				tasks.pop(task);
-			}
-			else if (!tasksTwo.empty())
-			{
-				std::swap(tasks, tasksTwo);
-				waiter.notify_all();
-				tasks.pop(task);
-			}*/
 		}
 		outputMutex.lock();
 		std::cout << "Thread " << threadId << " started task execution" << '\n';

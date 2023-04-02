@@ -35,14 +35,6 @@ public:
 		auto bind = std::bind(std::forward<T>(task), std::forward<args>(params)...);
 
 		tasksTwo.emplace(bind);
-		//tasks.emplace(bind);
-
-		/*if (!tasksTwo.empty())
-		{
-			std::swap(tasks, tasksTwo);
-			waiter.notify_all();
-		}*/
-		//waiter.notify_one();
 	}
 
 	threadPool(threadPool& pool) = delete;

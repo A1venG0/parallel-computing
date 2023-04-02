@@ -14,40 +14,6 @@ size_t taskQueue<T>::size() const
 	return tasks.size();
 }
 
-/*template <typename T>
-void taskQueue<T>::clear()
-{
-	std::shared_lock<std::shared_mutex> _(readWriteMutex);
-	while (!tasks.empty())
-		tasks.pop();
-}*/
-
-/*template <typename T>
-bool taskQueue<T>::pop(T& task)
-{
-	std::shared_lock<std::shared_mutex> _(readWriteMutex);
-	if (tasks.empty())
-		return false;
-	task = std::move(tasks.front());
-	tasks.pop();
-	return true;
-}*/
-
-/*template <typename T>
-template <typename... args>
-inline void taskQueue<T>::emplace(args&&... parameters)
-{
-	std::shared_lock<std::shared_mutex> _(readWriteMutex);
-	tasks.emplace(std::forward<args>(parameters)...);
-}*/
-
-//template <typename T>
-//void taskQueue<T>::push(const T& task)
-//{
-//	std::shared_lock<std::shared_mutex> _(readWriteMutex);
-//	tasks.push(std::move(task));
-//}
-
 template <typename T>
 taskQueue<T>& taskQueue<T>::operator=(taskQueue<T>&& other) noexcept
 {

@@ -19,10 +19,9 @@ void execute_task() {
     std::mt19937 rng(rd());
     int time = 4000 + rng() % 6001;
     std::this_thread::sleep_for(std::chrono::milliseconds(time));
+
     std::cout << "Task " << task_counter++ << " took " << time << " milliseconds" << '\n';
-    overall_task_time += time;
-    
-    //std::uniform_int_distribution<int> uni(TASK_MIN_DURATION, TASK_MAX_DURATION);
+    overall_task_time += time;    
 }
 
 void add_task_to_pool(threadPool& pool, std::function<void()> task) {
@@ -49,16 +48,6 @@ int main()
     {
         threads[i] = std::thread(add_task_to_pool, std::ref(pool), execute_task);
     }
-    /*pool.add_task(execute_task);
-    pool.add_task(execute_task);
-    pool.add_task(execute_task);
-    pool.add_task(execute_task);
-    pool.add_task(execute_task);
-
-    std::this_thread::sleep_for(std::chrono::seconds(6));
-
-    pool.add_task(execute_task);
-    pool.add_task(execute_task);*/
 
     for (int i = 0; i < INITIAL_NUMBER_OF_TASKS; i++)
         threads[i].join();
