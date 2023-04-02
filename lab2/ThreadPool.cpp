@@ -84,6 +84,11 @@ void threadPool::terminate_immidiately()
 
 }
 
+void threadPool::temporarilyStopWorking(int givenTime)
+{
+	std::this_thread::sleep_for(std::chrono::seconds(givenTime));
+}
+
 
 void threadPool::routine(int threadId)
 {

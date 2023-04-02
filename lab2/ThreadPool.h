@@ -16,6 +16,7 @@ public:
 	void initilize(const size_t threadCount);
 	void terminate();
 	void terminate_immidiately();
+	void temporarilyStopWorking(int givenTime);
 	void routine(int threadId);
 
 	bool working() const;
